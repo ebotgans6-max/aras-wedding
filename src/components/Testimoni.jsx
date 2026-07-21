@@ -3,24 +3,24 @@ import { Quote, Star } from 'lucide-react';
 export default function Testimoni() {
   const testimonials = [
     {
-      name: 'Aditya & Kinanti',
+      name: 'Ratmani & Rindiani',
       date: 'Januari 2026',
-      venue: 'Hotel Mulia Jakarta',
-      quote: 'Dari awal konsultasi sampai hari-H, semuanya berjalan sangat rapi. Kak Aras dan tim benar-benar detail-oriented. Dekorasi hitam-emas yang kami inginkan terwujud melebihi ekspektasi!',
+      venue: 'Rusunawa Rawabebek',
+      quote: 'Aku dan mas mau ngucapin makasih sebanyak banyaknya karena udah dibantu untuk kelancaran acaranya nikahan kita 😽\n\nSalah satu hal yg aku gk sesali adalah pake wo dari aras. Kerennn banget aku sampe happy bgt. Hal hal kecil aja di bantu bgt, aku terharu 🥺🥰\n\nTeam nya gercep bgt, keren sihhh ka. Aku bner bner happyyyy 😍sampe rasanya pas acara aku gk bisa jauh dri team aras, terutama Ka Caca yg kmren intens bantu aku. 🙌😚\n\nMakasih banyak yah 🙌🤍\n\nAku dan keluarga juga mau minta maaf kalo sambutan dan sajian nya kurang baik. Mohon di maklumi yah ka 🤭\n\nSukses terus untuk Aras wedding organizer 🔥✨',
       rating: 5,
     },
     {
-      name: 'Reza & Amanda',
+      name: 'Dapa & Suci',
       date: 'Maret 2026',
-      venue: 'Plataran Cilandak',
-      quote: 'Sangat merekomendasikan Aras Wedding! Kami sebagai pengantin tidak merasa stres sama sekali di hari pernikahan. Semua vendor dikoordinasikan dengan sangat baik, rundown tepat waktu.',
+      venue: 'Cibinong Kab Bogor',
+      quote: 'Kakaaaakkk ,aku mau ngucapin terimakasih banyakkkk ke kaka2 semuaaa,team nya ramah semuaa masyaallah. Wajib aku rekomendasikan ke temen2 aku untuk team wo aras inii🤗🥰',
       rating: 5,
     },
     {
-      name: 'Dimas & Felicia',
+      name: 'Rendy & Frisca',
       date: 'Mei 2026',
-      venue: 'Ritz-Carlton Mega Kuningan',
-      quote: 'Terima kasih banyak atas dukungannya! Tim yang sigap, ramah, dan solutif. Pesta pernikahan megah kami dihadiri 1200 tamu dan semua berjalan tertib berkat sistem RSVP digital dari Aras.',
+      venue: 'GOR Sawah Besar',
+      quote: 'Kakk makasi yaa udah suksesin acara aku!!! Sumpah aku terharuu🥹🥹, crew kakak pd baik semua, pd lembut, pd ramah, pd peka, pd ga sibuk sendiri, pokonya ngelayanin aku bgt & atur acaranya aku, bener2 sesuai ekspektasi aku bahkan lebih, mcnya juga seru bgtt kak aku suka, seneng bgt ka eddy bisa ngeusahain semuanya, aku rekomen bangett jasa kakak pd keren2, next klo aku buka paket all in pasti wonya mau kaka aja gamau yg lain!!!🥹🥹🥹🩷🩷🩷🩷🩷',
       rating: 5,
     },
   ];
@@ -65,7 +65,7 @@ export default function Testimoni() {
                     <Star key={sIdx} className="w-4 h-4 text-gold fill-gold" />
                   ))}
                 </div>
-                <p className="text-gray-300 font-light italic leading-relaxed text-sm md:text-base">
+                <p className="text-gray-300 font-light italic leading-relaxed text-sm md:text-base whitespace-pre-line text-left">
                   &ldquo;{test.quote}&rdquo;
                 </p>
               </div>
