@@ -87,11 +87,10 @@ const OnboardingForm = () => {
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await fetch('https://odd-dragonfly-54.loca.lt/api/generate-docx', {
+      const response = await fetch('https://aras-wedding.onrender.com/api/generate-docx', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Bypass-Tunnel-Reminder': 'true'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData),
       });
