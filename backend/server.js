@@ -45,6 +45,7 @@ client.initialize();
 
 // API Endpoint to generate DOCX
 app.post('/api/generate-docx', async (req, res) => {
+  console.log("Data received:", req.body);
   try {
     const data = req.body;
 
@@ -86,16 +87,27 @@ app.post('/api/generate-docx', async (req, res) => {
     console.log(`Dokumen berhasil dibuat: ${tempFileName}`);
 
     // Format number to ensure it ends with @c.us (WhatsApp ID format)
-    const chatId = `${ADMIN_WA_NUMBER}@c.us`;
+    let formattedNumber = ADMIN_WA_NUMBER;
+    if (formattedNumber.startsWith('0')) {
+      formattedNumber = '62' + formattedNumber.substring(1);
+    }
+    if (!formattedNumber.endsWith('@c.us')) {
+      formattedNumber = `${formattedNumber}@c.us`;
+    }
+    const chatId = formattedNumber;
 
     // Load media from the generated file
     const media = MessageMedia.fromFilePath(tempFilePath);
 
     // Send message
-    await client.sendMessage(chatId, media, {
-      caption: `Halo Admin, ini adalah data onboarding baru untuk pasangan ${data.Panggilan_CPP} & ${data.Panggilan_CPW}.`
-    });
-    console.log('Dokumen berhasil dikirim ke WhatsApp admin.');
+    try {
+      await client.sendMessage(chatId, media, {
+        caption: `Halo Admin, ini adalah data onboarding baru untuk pasangan ${data.Panggilan_CPP} & ${data.Panggilan_CPW}.`
+      });
+      console.log("Message sent successfully");
+    } catch (err) {
+      console.error("WA Error:", err);
+    }
 
     // Securely delete the temporary file after successful generation and transmission
     fs.unlinkSync(tempFilePath);
@@ -109,6 +121,6 @@ app.post('/api/generate-docx', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend server is running on http://localhost:${PORT}`);
+app.listen(5000, () => {
+  console.log(`Backend server is running on http://localhost:5000`);
 });
