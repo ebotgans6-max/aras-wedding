@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
-export default function Navbar() {
+export default function Navbar({ onToggleOnboarding }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -33,14 +33,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2 cursor-pointer group">
+          <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => window.location.href = '/'}>
             <span className="font-playfair text-xl md:text-2xl font-bold tracking-widest text-gold-gradient uppercase">
               Aras Wedding
             </span>
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -50,6 +50,12 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
+            <button
+              onClick={onToggleOnboarding}
+              className="text-sm font-medium tracking-wide text-gray-300 hover:text-gold transition-colors duration-300"
+            >
+              Onboarding Client
+            </button>
             <a
               href="https://wa.me/6285183270299?text=Halo%20Aras%20Wedding,%20saya%20tertarik%20konsultasi%20paket%20pernikahan"
               target="_blank"
@@ -88,6 +94,15 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
+          <button
+            onClick={() => {
+              onToggleOnboarding();
+              setIsMobileMenuOpen(false);
+            }}
+            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-gold hover:bg-white/5 transition-all duration-200"
+          >
+            Onboarding Client
+          </button>
           <div className="pt-2 px-3">
             <a
               href="https://wa.me/6285183270299?text=Halo%20Aras%20Wedding,%20saya%20tertarik%20konsultasi%20paket%20pernikahan"
