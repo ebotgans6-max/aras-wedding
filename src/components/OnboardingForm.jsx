@@ -1,4 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, createContext, useContext } from 'react';
+
+const FormContext = createContext();
+
+const InputField = ({ label, name, type = 'text', required = false }) => {
+  const { formData, handleChange } = useContext(FormContext);
+  return (
+    <div className="flex flex-col gap-1 mb-4">
+      <label htmlFor={name} className="text-sm font-medium text-gray-700">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <input
+        type={type}
+        id={name}
+        name={name}
+        value={formData[name]}
+        onChange={handleChange}
+        required={required}
+        className="px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+      />
+    </div>
+  );
+};
 
 const OnboardingForm = () => {
   const [formData, setFormData] = useState({
@@ -86,23 +108,6 @@ const OnboardingForm = () => {
     }
   };
 
-  const InputField = ({ label, name, type = 'text', required = false }) => (
-    <div className="flex flex-col gap-1 mb-4">
-      <label htmlFor={name} className="text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <input
-        type={type}
-        id={name}
-        name={name}
-        value={formData[name]}
-        onChange={handleChange}
-        required={required}
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-      />
-    </div>
-  );
-
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-xl rounded-2xl my-8">
       <div className="text-center mb-10">
@@ -116,6 +121,7 @@ const OnboardingForm = () => {
         </div>
       )}
 
+      <FormContext.Provider value={{ formData, handleChange }}>
       <form onSubmit={handleSubmit} className="space-y-8">
         
         {/* SECTION 1: COVER */}
@@ -220,6 +226,7 @@ const OnboardingForm = () => {
           </button>
         </div>
       </form>
+      </FormContext.Provider>
     </div>
   );
 };
