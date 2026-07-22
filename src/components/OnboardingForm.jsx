@@ -99,6 +99,16 @@ const OnboardingForm = () => {
       // 2. Load the zip with PizZip
       const zip = new PizZip(arrayBuffer);
 
+      // Pre-process XML files to fix duplicate curly braces (e.g. {{tag}} to {tag})
+      Object.keys(zip.files).forEach(fileName => {
+        if (fileName.endsWith('.xml')) {
+          let content = zip.file(fileName).asText();
+          // Replace {{ with { and }} with }
+          content = content.replace(/\{\{/g, '{').replace(/\}\}/g, '}');
+          zip.file(fileName, content);
+        }
+      });
+
       // 3. Initialize Docxtemplater
       const doc = new Docxtemplater(zip, {
         paragraphLoop: true,
