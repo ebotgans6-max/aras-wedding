@@ -99,7 +99,23 @@ const OnboardingForm = () => {
         throw new Error('Gagal membuat dokumen');
       }
 
-      setStatus({ type: 'success', message: 'Dokumen berhasil dibuat dan dikirim via WhatsApp!' });
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      const safeCpp = (formData.Panggilan_CPP || 'CPP').replace(/[^a-z0-9]/gi, '_');
+      const safeCpw = (formData.Panggilan_CPW || 'CPW').replace(/[^a-z0-9]/gi, '_');
+      a.download = `Data_Pernikahan_${safeCpp}_${safeCpw}.docx`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+
+      // Redirect to WhatsApp
+      const waText = encodeURIComponent(`Halo Admin, ini adalah data onboarding baru untuk pasangan ${formData.Panggilan_CPP} & ${formData.Panggilan_CPW}. File dokumen akan saya kirimkan di chat ini.`);
+      window.open(`https://wa.me/6285183270299?text=${waText}`, '_blank');
+
+      setStatus({ type: 'success', message: 'Dokumen berhasil diunduh! Anda akan dialihkan ke WhatsApp Admin.' });
     } catch (error) {
       console.error('Error generating document:', error);
       setStatus({ type: 'error', message: 'Terjadi kesalahan saat memproses data. Pastikan server backend berjalan.' });
