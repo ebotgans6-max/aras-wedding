@@ -103,6 +103,9 @@ const OnboardingForm = () => {
       const doc = new Docxtemplater(zip, {
         paragraphLoop: true,
         linebreaks: true,
+        nullGetter() {
+          return "";
+        }
       });
 
       // 4. Render the document with the form data
@@ -132,7 +135,17 @@ const OnboardingForm = () => {
       setStatus({ type: 'success', message: 'Dokumen berhasil diunduh! Anda akan dialihkan ke WhatsApp Admin.' });
     } catch (error) {
       console.error('Error generating document:', error);
-      setStatus({ type: 'error', message: 'Gagal membuat dokumen: ' + error.message });
+      
+      let detailedError = error.message;
+      if (error.properties && error.properties.errors instanceof Array) {
+        const errorMessages = error.properties.errors.map(function(e) {
+          return e.properties && e.properties.id ? e.properties.id : e.message;
+        }).join(', ');
+        console.error('Docxtemplater MultiError:', error.properties.errors);
+        detailedError = 'Template tag errors (missing/unclosed): ' + errorMessages;
+      }
+      
+      setStatus({ type: 'error', message: 'Gagal membuat dokumen: ' + detailedError });
     } finally {
       setLoading(false);
     }
