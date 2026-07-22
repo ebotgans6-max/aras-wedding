@@ -87,10 +87,11 @@ const OnboardingForm = () => {
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await fetch('http://localhost:5000/api/generate-docx', {
+      const response = await fetch('https://aras-wedding-api.loca.lt/api/generate-docx', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Bypass-Tunnel-Reminder': 'true'
         },
         body: JSON.stringify(formData),
       });
