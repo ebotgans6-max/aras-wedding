@@ -132,7 +132,7 @@ const OnboardingForm = () => {
       setStatus({ type: 'success', message: 'Dokumen berhasil diunduh! Anda akan dialihkan ke WhatsApp Admin.' });
     } catch (error) {
       console.error('Error generating document:', error);
-      setStatus({ type: 'error', message: 'Terjadi kesalahan saat memproses data. Pastikan server backend berjalan.' });
+      setStatus({ type: 'error', message: 'Gagal membuat dokumen: ' + error.message });
     } finally {
       setLoading(false);
     }
