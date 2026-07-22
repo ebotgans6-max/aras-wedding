@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: aras-wedding-backend
-    env: node
-    buildCommand: "cd backend && npm install"
-    startCommand: "cd backend && node server.js"

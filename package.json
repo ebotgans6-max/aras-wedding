@@ -7,11 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview",
-    "start-backend": "cd backend && node server.js"
+    "preview": "vite preview"
   },
   "dependencies": {
+    "docxtemplater": "^3.69.2",
     "lucide-react": "^1.25.0",
+    "pizzip": "^3.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },

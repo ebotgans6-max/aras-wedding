@@ -1,4 +1,6 @@
 import React, { useState, createContext, useContext } from 'react';
+import PizZip from 'pizzip';
+import Docxtemplater from 'docxtemplater';
 
 const FormContext = createContext();
 
@@ -87,19 +89,31 @@ const OnboardingForm = () => {
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await fetch('https://aras-wedding.onrender.com/api/generate-docx', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData),
+      // 1. Fetch the template file from the public folder
+      const templateResponse = await fetch('/RD_WO_NEW-salin.docx');
+      if (!templateResponse.ok) {
+        throw new Error('Template document (RD_WO_NEW-salin.docx) not found in the public folder.');
+      }
+      const arrayBuffer = await templateResponse.arrayBuffer();
+
+      // 2. Load the zip with PizZip
+      const zip = new PizZip(arrayBuffer);
+
+      // 3. Initialize Docxtemplater
+      const doc = new Docxtemplater(zip, {
+        paragraphLoop: true,
+        linebreaks: true,
       });
 
-      if (!response.ok) {
-        throw new Error('Gagal membuat dokumen');
-      }
+      // 4. Render the document with the form data
+      doc.render(formData);
 
-      const blob = await response.blob();
+      // 5. Generate the output as a blob
+      const blob = doc.getZip().generate({
+        type: 'blob',
+        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        compression: 'DEFLATE',
+      });
       const downloadUrl = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = downloadUrl;
