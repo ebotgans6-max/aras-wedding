@@ -20,7 +20,16 @@ const ADMIN_WA_NUMBER = process.env.ADMIN_WA_NUMBER || '6285183270299';
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process',
+      '--disable-gpu'
+    ]
   }
 });
 
@@ -121,6 +130,7 @@ app.post('/api/generate-docx', async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log(`Backend server is running on http://localhost:5000`);
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Backend server is running on port ${port}`);
 });
